@@ -1,6 +1,12 @@
 from flask import Flask , request
 import json
 
+app = Flask(__name__)
+
+#Definindo variaveis previamente
+idoso = 0
+sangue = 0
+pulmao = 0
 
 @app.route('/classificar' , methods=['POST' , 'GET'])
 def classificar():
@@ -22,13 +28,9 @@ def classificar():
 	fadiga = dados['fadiga']
 	nausea = dados['nausea']
 	febre = 0
-	idoso = 0
-	sangue = 0
-	pulmao = 0
 
 	if idade > 50:
 		idoso = 1
-
 
 	if temperatura > 37:
 		febre = 1
@@ -39,7 +41,7 @@ def classificar():
 	if respiracao > 20:
 		pulmao = 1
 	
-	if (contatoSuspeito == 0) and (comorbidade == 0):
+	if (comorbidade == 0):
 		if (febre == 0) and ((tosseSeca == 0) or (nariz == 0) or (dorGarganta == 0) or (pulmao == 0)):
 			return { 'situacao' : 'Situaçao 1'}
 		else:
@@ -76,4 +78,5 @@ if __name__ == '__main__' :
 	vNORMAL = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]
 
 	'''
+
 
